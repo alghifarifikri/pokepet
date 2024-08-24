@@ -2,7 +2,6 @@ import About from "@/components/Organisms/Detail/About";
 import Status from "@/components/Organisms/Detail/Status";
 import Moves from "@/components/Organisms/Detail/Moves";
 import Card from "@/components/Organisms/Detail/Card";
-import Alert from "@/components/Atoms/Alert";
 import Nickname from "@/components/Organisms/Detail/Nickname";
 
 const Detail = ({
@@ -15,8 +14,6 @@ const Detail = ({
   showModal,
   nickname,
   isLoadingSubmit,
-  message,
-  type,
   setActiveTab,
   handleCatch,
   handleFetchMoveDetails,
@@ -59,7 +56,6 @@ const Detail = ({
         closeModal={() => setShowModal(false)}
         submit={submit}
       />
-      {type && <Alert message={message} type={type} />}
     </div>
   );
 };

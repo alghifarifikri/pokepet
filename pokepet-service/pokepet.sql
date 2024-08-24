@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Aug 24, 2024 at 03:15 PM
+-- Generation Time: Aug 24, 2024 at 04:07 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.0.28
 
@@ -42,7 +42,9 @@ CREATE TABLE `owned` (
 --
 
 INSERT INTO `owned` (`id`, `name`, `nickname`, `type`, `id_pokemon`, `count`, `image_url`) VALUES
-('311d5bc5-8d8c-4efc-ac42-7e8a5d006159', 'charizard', 'Nigga - 1', '[\"fire\",\"flying\"]', '6', 3, 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/6.png');
+('269d3afe-451c-4f76-a253-da98dfe8e0f6', 'bulbasaur', 'bulbasaur - 3', '[\"grass\",\"poison\"]', '1', 5, 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png'),
+('311d5bc5-8d8c-4efc-ac42-7e8a5d006159', 'charizard', 'Nigga - 1', '[\"fire\",\"flying\"]', '6', 3, 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/6.png'),
+('f549d68c-e203-4e44-b4d2-f10e698fb112', 'bulbasaur', 'Test - 21', '[\"grass\",\"poison\"]', '1', 9, 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png');
 
 --
 -- Indexes for dumped tables

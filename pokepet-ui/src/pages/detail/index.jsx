@@ -10,6 +10,7 @@ import {
 import { catchPokemon } from "@/store/pokemon-catch/slice";
 import { nicknamePokemon } from "@/store/pokemon-catch/slice";
 import Detail from "@/components/Organisms/Detail";
+import { handleShow } from "@/store/alert/slice";
 
 const PokemonDetail = () => {
   const { id } = useParams();
@@ -24,7 +25,6 @@ const PokemonDetail = () => {
   const [isLoadingSubmit, setIsLoadingSubmit] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [first, setFirst] = useState(true);
-  const [type, setType] = useState(null);
 
   useEffect(() => {
     dispatch(fetchPokemonDetailId(id));
@@ -32,13 +32,14 @@ const PokemonDetail = () => {
 
   useEffect(() => {
     if (!first) {
-      if (message === "Gagal menangkap Pokémon" || err) setType("error");
+      if (message === "Gagal menangkap Pokémon" || err)
+        dispatch(handleShow({ show: true, type: "error", message }));
       else if (
         message === "Pokémon berhasil ditangkap" ||
         message === "Nickname berhasil diperbarui"
       ) {
         setShowModal(!showModal);
-        setType("success");
+        dispatch(handleShow({ show: true, type: "success", message }));
       }
     } else setFirst(false);
 
@@ -46,7 +47,7 @@ const PokemonDetail = () => {
     setIsLoadingSubmit(false);
     setNickname("");
     setTimeout(() => {
-      setType(null);
+      dispatch(handleShow({ show: false, type: "", message: "" }));
     }, 3000);
   }, [message, err]);
 
@@ -105,8 +106,6 @@ const PokemonDetail = () => {
       showModal={showModal}
       nickname={nickname}
       isLoadingSubmit={isLoadingSubmit}
-      message={message}
-      type={type}
       setActiveTab={setActiveTab}
       handleCatch={handleCatch}
       handleFetchMoveDetails={(param) => handleFetchMoveDetails(param)}

@@ -3,16 +3,13 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchPokemonOwned } from "@/store/pokemon/slice";
 import { endpoint } from "@/utils/api";
-import Alert from "@/components/Atoms/Alert";
+import { handleShow } from "@/store/alert/slice";
 
 function MyPokemon() {
   const dispatch = useDispatch();
   const { owned, status } = useSelector((state) => state.pokemon);
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [show, setShow] = useState(false);
-  const [message, setMessage] = useState("");
-  const [type, setType] = useState("");
 
   useEffect(() => {
     dispatch(fetchPokemonOwned());
@@ -38,21 +35,21 @@ function MyPokemon() {
         id: param,
       });
 
-      if (response.data.message === "Pokémon berhasil di-release")
-        setType("success");
-      else setType("error");
-
-      setMessage(response.data.message);
-      setShow(true);
+      dispatch(
+        handleShow({
+          show: true,
+          type:
+            response.data.message === "Pokémon berhasil di-release"
+              ? "success"
+              : "error",
+          message: response.data.message,
+        })
+      );
     } catch (err) {
       console.log({ err });
     } finally {
       setLoading(false);
       dispatch(fetchPokemonOwned());
-      setTimeout(() => {
-        setShow(false);
-        setType(null);
-      }, 3000);
     }
   };
 
@@ -63,21 +60,21 @@ function MyPokemon() {
         id: param,
       });
 
-      if (response.data.message === "Nickname berhasil direname")
-        setType("success");
-      else setType("error");
-
-      setMessage(response.data.message);
-      setShow(true);
+      dispatch(
+        handleShow({
+          show: true,
+          type:
+            response.data.message === "Nickname berhasil direname"
+              ? "success"
+              : "error",
+          message: response.data.message,
+        })
+      );
     } catch (err) {
       console.log({ err });
     } finally {
       setLoading(false);
       dispatch(fetchPokemonOwned());
-      setTimeout(() => {
-        setShow(false);
-        setType(null);
-      }, 3000);
     }
   };
 
@@ -91,7 +88,6 @@ function MyPokemon() {
         release={(param) => release(param)}
         rename={(param) => rename(param)}
       />
-      {show && <Alert message={message} type={type} />}
     </div>
   );
 }
