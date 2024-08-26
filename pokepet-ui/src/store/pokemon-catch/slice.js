@@ -48,7 +48,6 @@ const pokemonSlice = createSlice({
         state.result = action.payload.data;
       })
       .addCase(nicknamePokemon.fulfilled, (state, action) => {
-        console.log({ action });
         if (action.payload === "Nickname sudah ada") {
           state.err = true;
           state.message = action.payload;

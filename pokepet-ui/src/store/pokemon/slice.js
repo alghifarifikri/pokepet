@@ -6,28 +6,28 @@ export const fetchPokemon = createAsyncThunk(
   async ({ size, page }, { dispatch }) => {
     const response = await endpoint.getPokemonList(size, page);
     dispatch(fetchPokemonDetails(response.data.results));
-    return response.data.results;
+    dispatch(getPokemon(response.data.results));
   }
 );
 
 export const fetchPokemonOwned = createAsyncThunk(
   "pokemon/fetchPokemonOwned",
-  async () => {
+  async (_, { dispatch }) => {
     const response = await endpoint.getPokemonOwnedList();
-    return response.data.result;
+    dispatch(getPokemonOwned(response.data.result));
   }
 );
 
 export const fetchPokemonDetails = createAsyncThunk(
   "pokemon/fetchPokemonDetails",
-  async (pokemonList) => {
+  async (pokemonList, { dispatch }) => {
     const details = await Promise.all(
       pokemonList.map(async (pokemon) => {
         const response = await endpoint.getPokemonListDetail(pokemon.url);
         return response.data;
       })
     );
-    return details;
+    dispatch(getPokemonDetail(details));
   }
 );
 
@@ -46,6 +46,29 @@ const pokemonSlice = createSlice({
     increaseLimit: (state) => {
       state.offset += state.limit;
     },
+    getPokemon: (state, action) => {
+      state.status = "succeeded";
+      state.tempList = [...state.tempList, ...action.payload];
+      if (action.payload.length < state.limit) {
+        state.hasMore = false;
+      }
+      state.loading = false;
+    },
+    getPokemonDetail: (state, action) => {
+      const uniquePokemon = action.payload.filter(
+        (newPokemon) =>
+          !state.list.some(
+            (existingPokemon) => existingPokemon.id === newPokemon.id
+          )
+      );
+
+      state.list = [...state.list, ...uniquePokemon];
+      state.tempList = [];
+    },
+    getPokemonOwned: (state, action) => {
+      state.status = "succeeded";
+      state.owned = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -53,34 +76,11 @@ const pokemonSlice = createSlice({
         state.status = "loading";
         state.loading = true;
       })
-      .addCase(fetchPokemon.fulfilled, (state, action) => {
-        state.status = "succeeded";
-        state.tempList = [...state.tempList, ...action.payload];
-        if (action.payload.length < state.limit) {
-          state.hasMore = false;
-        }
-        state.loading = false;
-      })
-      .addCase(fetchPokemonDetails.fulfilled, (state, action) => {
-        const uniquePokemon = action.payload.filter(
-          (newPokemon) =>
-            !state.list.some(
-              (existingPokemon) => existingPokemon.id === newPokemon.id
-            )
-        );
-
-        state.list = [...state.list, ...uniquePokemon];
-        state.tempList = [];
-      })
       .addCase(fetchPokemon.rejected, (state) => {
         state.status = "failed";
       })
       .addCase(fetchPokemonOwned.pending, (state) => {
         state.status = "loading";
-      })
-      .addCase(fetchPokemonOwned.fulfilled, (state, action) => {
-        state.status = "succeeded";
-        state.owned = action.payload;
       })
       .addCase(fetchPokemonOwned.rejected, (state) => {
         state.status = "failed";
@@ -88,5 +88,6 @@ const pokemonSlice = createSlice({
   },
 });
 
-export const { increaseLimit } = pokemonSlice.actions;
+export const { increaseLimit, getPokemon, getPokemonDetail, getPokemonOwned } =
+  pokemonSlice.actions;
 export default pokemonSlice.reducer;
