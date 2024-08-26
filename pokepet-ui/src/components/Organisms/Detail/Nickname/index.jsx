@@ -21,7 +21,7 @@ const Nickname = ({
         <Button
           label={"Submit"}
           loading={loading}
-          className="w-1/3 self-center mt-3 bg-blue-500 text-white font-bold rounded-lg p-2"
+          className="button-submit"
           onClick={submit}
         />
       </div>

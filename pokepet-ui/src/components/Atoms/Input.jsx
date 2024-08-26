@@ -4,7 +4,7 @@ const Input = ({ value, label, onChange = () => {} }) => {
       <label className="mb-2 text-black">{label}</label>
       <input
         value={value}
-        className="p-2 bg-white border-2 border-blue-400 shadow-md text-black"
+        className="input-atom"
         onChange={(param) => onChange(param.target.value)}
       />
     </div>

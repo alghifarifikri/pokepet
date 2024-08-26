@@ -6,7 +6,9 @@ import { store } from "./store/store";
 import "./index.css";
 import "./style/pokemonlist.css";
 import "./style/pokemondetail.css";
-import "./style/header.css";
+import "./style/atom.css";
+import "./style/molecules.css";
+import "./style/organisms.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>

@@ -1,0 +1,11 @@
+.move-list {
+  @apply capitalize cursor-pointer text-black hover:bg-gray-400 shadow-md bg-gray-200 rounded-lg p-1 mb-2;
+}
+
+.button-submit {
+  @apply w-1/3 self-center mt-3 bg-blue-500 text-white font-bold rounded-lg p-2;
+}
+
+.card-container {
+  @apply bg-blue-400 w-full shadow-md rounded-lg p-6 ml-0 md:ml-10 mt-4 md:mt-0 h-2/3 overflow-y-auto;
+}

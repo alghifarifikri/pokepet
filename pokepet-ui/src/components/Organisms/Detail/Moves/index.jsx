@@ -16,7 +16,7 @@ const Moves = ({
         {pokemon.moves.map((move, index) => (
           <div
             key={index}
-            className="capitalize cursor-pointer text-black hover:bg-gray-400 shadow-md bg-gray-200 rounded-lg p-1 mb-2"
+            className="move-list"
             onClick={() => fetch(move.move.url)}
           >
             {move.move.name}

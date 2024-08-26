@@ -7,7 +7,7 @@ const Modal = ({ isOpen, onClose, children, hide = false }) => {
   if (!isOpen) return null;
 
   return ReactDOM.createPortal(
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div className="modal-container">
       <div className="bg-white p-4 rounded-lg shadow-lg w-11/12 md:w-1/2">
         {!hide && (
           <Button

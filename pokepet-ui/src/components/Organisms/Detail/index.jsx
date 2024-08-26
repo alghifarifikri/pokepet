@@ -33,7 +33,7 @@ const Detail = ({
           onAction={handleCatch}
         />
 
-        <div className="bg-blue-400 w-full shadow-md rounded-lg p-6 ml-0 md:ml-10 mt-4 md:mt-0 h-2/3 overflow-y-auto">
+        <div className="card-container">
           {activeTab === "About" && <About pokemon={pokemon} />}
           {activeTab === "Status" && <Status pokemon={pokemon} />}
           {activeTab === "Moves" && (

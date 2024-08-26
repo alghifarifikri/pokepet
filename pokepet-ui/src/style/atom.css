@@ -1,0 +1,11 @@
+.button-atom {
+  @apply animate-spin inline-block w-4 h-2 border-4 rounded-full border-t-white border-b-white border-l-transparent border-r-transparent;
+}
+
+.input-atom {
+  @apply p-2 bg-white border-2 border-blue-400 shadow-md text-black;
+}
+
+.loading-atom {
+  @apply animate-spin inline-block w-20 h-20 border-4 rounded-full border-t-blue-500 border-b-blue-500 border-l-transparent border-r-transparent;
+}

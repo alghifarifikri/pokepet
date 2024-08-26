@@ -7,9 +7,7 @@ const Button = ({
 }) => {
   return (
     <button onClick={onClick} className={className} disabled={loading}>
-      {loading && (
-        <div className="spinner-border animate-spin inline-block w-4 h-2 border-4 rounded-full border-t-white border-b-white border-l-transparent border-r-transparent"></div>
-      )}
+      {loading && <div className="spinner-border button-atom"></div>}
       {!loading && (children || label)}
     </button>
   );
