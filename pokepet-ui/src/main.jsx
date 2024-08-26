@@ -4,8 +4,6 @@ import App from "./App";
 import { Provider } from "react-redux";
 import { store } from "./store/store";
 import "./index.css";
-import "./style/pokemonlist.css";
-import "./style/pokemondetail.css";
 import "./style/atom.css";
 import "./style/molecules.css";
 import "./style/organisms.css";
